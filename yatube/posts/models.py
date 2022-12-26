@@ -4,12 +4,15 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class Group(models.Model):
-    title = models.CharField("Название",max_length=200)
-    slug = models.SlugField("Ссылка",max_length=18, unique=True)
+    title = models.CharField("Название", max_length=200)
+    slug = models.SlugField("Ссылка", max_length=18, unique=True)
     description = models.TextField("Описание", max_length=250)
+
     def __str__(self) -> str:
         return self.title
+
 
 class Post(models.Model):
     text = models.TextField()
@@ -18,5 +21,8 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='posts')
-    group = models.ForeignKey(Group, blank=True, null=True, related_name='posts', on_delete=models.SET_NULL)
-
+    group = models.ForeignKey(Group,
+                              blank=True,
+                              null=True,
+                              related_name='posts',
+                              on_delete=models.SET_NULL)

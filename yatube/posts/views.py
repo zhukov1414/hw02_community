@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 
@@ -7,7 +6,7 @@ def index(request):
     template_post = 'posts/index.html'
     posts = Post.objects.all()
     context = {
-        'posts': posts, 
+        'posts': posts,
     }
     return render(request, template_post, context)
 
@@ -21,4 +20,3 @@ def group_list(request, slug):
         'posts': posts,
     }
     return render(request, template_post, context)
-
