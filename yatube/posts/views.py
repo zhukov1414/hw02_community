@@ -1,22 +1,21 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
+
 from .models import Post, Group
+
+from yatube.settings import NUMBER_OF_POSTS
 
 
 def index(request):
-    template_post = 'posts/index.html'
-    posts = Post.objects.all()
-    context = {
+    posts = Post.objects.all().order_by('-id')[:NUMBER_OF_POSTS]
+    return render(request, 'posts/index.html', {
         'posts': posts,
-    }
-    return render(request, template_post, context)
+    })
 
 
 def group_list(request, slug):
-    template_post = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
-    context = {
+    posts = Post.objects.filter(group=group)
+    return render(request, 'posts/group_list.html', {
         'group': group,
         'posts': posts,
-    }
-    return render(request, template_post, context)
+    })
