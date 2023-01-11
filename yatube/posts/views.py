@@ -2,11 +2,12 @@ from django.shortcuts import get_object_or_404, render
 
 from .models import Post, Group
 
-from yatube.settings import NUMBER_OF_POSTS
+
+NUMBER_POSTS = 10
 
 
 def index(request):
-    posts = Post.objects.all().order_by('-id')[:NUMBER_OF_POSTS]
+    posts = Post.objects.all().order_by('-id')[:NUMBER_POSTS]
     return render(request, 'posts/index.html', {
         'posts': posts,
     })
