@@ -6,7 +6,7 @@ from django.conf import settings
 
 
 def index(request):
-    posts = Post.objects.all().order_by('-id')[:settings.NUMBER_POSTS]
+    posts = Post.objects.all()[:settings.NUMBER_POSTS]
     return render(request, 'posts/index.html', {
         'posts': posts,
     })
